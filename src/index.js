@@ -39,8 +39,11 @@ export default class VueRouter {
     this.beforeHooks = []
     this.resolveHooks = []
     this.afterHooks = []
+    
+    // 路由匹配对象
     this.matcher = createMatcher(options.routes || [], this)
-
+    
+    // 根据 mode 采取不同的路由方式
     let mode = options.mode || 'hash'
     this.fallback = mode === 'history' && !supportsPushState && options.fallback !== false
     if (this.fallback) {
@@ -50,7 +53,8 @@ export default class VueRouter {
       mode = 'abstract'
     }
     this.mode = mode
-
+    
+    // 根据 mode 创建 history
     switch (mode) {
       case 'history':
         this.history = new HTML5History(this, options.base)
